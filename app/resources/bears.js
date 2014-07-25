@@ -72,9 +72,17 @@ resource.update(function(req, res) {
 
 });
 
-// delete bears service endpoint
+// delete the bear with this id
 resource.delete(function(req, res) {
-  res.json({"action": "delete", "data": "delete data from stub"});
+	Bear.remove({
+		_id: req.params.id
+	}, function(err, bear) {
+		if (err)
+			res.send(err);
+
+		res.json({ message: 'Successfully deleted' });
+	});
+
 });
 
 module.exports = resource;
