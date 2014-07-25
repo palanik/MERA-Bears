@@ -17,9 +17,14 @@ resource.all(function(req, res, next) {
 	next();
 });
 
-// list bears service endpoint
+// get all the bears
 resource.list(function(req, res) {
-  res.json({"action": "list", "data": "list data from stub"});
+	Bear.find(function(err, bears) {
+		if (err)
+			res.send(err);
+
+		res.json(bears);
+	});
 });
 
 // read bears service endpoint
