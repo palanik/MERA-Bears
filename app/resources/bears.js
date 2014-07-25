@@ -50,9 +50,26 @@ resource.create(function(req, res) {
 	});
 });
 
-// update bears service endpoint
+// update the bear with this id
 resource.update(function(req, res) {
-  res.json({"action": "update", "data": "update data from stub"});
+	// use our bear model to find the bear we want
+	Bear.findById(req.params.id, function(err, bear) {
+
+		if (err)
+			res.send(err);
+
+		bear.name = req.body.name; 	// update the bears info
+
+		// save the bear
+		bear.save(function(err) {
+			if (err)
+				res.send(err);
+
+			res.json({ message: 'Bear updated!' });
+		});
+
+	});
+
 });
 
 // delete bears service endpoint
