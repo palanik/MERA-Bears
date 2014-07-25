@@ -27,9 +27,13 @@ resource.list(function(req, res) {
 	});
 });
 
-// read bears service endpoint
+// get the bear with that id
 resource.read(function(req, res) {
-  res.json({"action": "read", "data": "read data from stub"});
+	Bear.findById(req.params.id, function(err, bear) {
+		if (err)
+			res.send(err);
+		res.json(bear);
+	});
 });
 
 // create a bear
