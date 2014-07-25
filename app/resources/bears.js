@@ -27,9 +27,18 @@ resource.read(function(req, res) {
   res.json({"action": "read", "data": "read data from stub"});
 });
 
-// create bears service endpoint
+// create a bear
 resource.create(function(req, res) {
-  res.json({"action": "create", "data": "create data from stub"});
+	var bear = new Bear(); 		// create a new instance of the Bear model
+	bear.name = req.body.name;  // set the bears name (comes from the request)
+
+	// save the bear and check for errors
+	bear.save(function(err) {
+		if (err)
+			res.send(err);
+
+		res.json({ message: 'Bear created!' });
+	});
 });
 
 // update bears service endpoint
